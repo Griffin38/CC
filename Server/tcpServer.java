@@ -12,7 +12,7 @@ import ReverseProxy.ReverseProxy;
 public class tcpServer{
 
 private boolean running;
-private int con ;
+private static int con ;
 
 
 public tcpServer(){
@@ -28,15 +28,14 @@ public tcpServer(){
 			  
 			  Socket connectionSocket = MainOut.accept();
 			  con++;
-	  	      BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-	  		   DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+	  	      
 	  		   
 	  		   Thread cl = new Thread() {
 			    public void run() {
-			    	 while (true) {
-			    		trata(inFromClient,outToClient);
+			    	 
+			    		trata(connectionSocket);
 			  		  
-			  		  }
+			  		  
 			    }  
 			};
 
@@ -44,11 +43,18 @@ public tcpServer(){
 	}
 	}  
 		  
-		  private static void trata(BufferedReader in, DataOutputStream out){
+		  private static void trata(Socket connectionSocket){
+			
 				try {
-					String clientSentence = in.readLine();
-					//escrever de volta 
-					//con--;
+					  BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+			  		   DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+					String clientSentence = inFromClient.readLine();
+					 System.out.println("Received: " + clientSentence);
+					 String  capitalizedSentence = clientSentence.toUpperCase() + '\n';
+					   outToClient.writeBytes(capitalizedSentence);
+					   con--;
+					   connectionSocket.close();
+					  
 				} catch (IOException e) {
 
 					e.printStackTrace();
@@ -60,5 +66,6 @@ public tcpServer(){
 		  }
 			public void close(){
 				this.running = false;
+				
 			}
 }
