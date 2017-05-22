@@ -48,22 +48,22 @@ public class monitorUDP  {
 	}
 }
 	public void Receive(){
-	while(true){	
+		
 		try {
-			 DatagramSocket ds = new DatagramSocket(5555);
+			 DatagramSocket ds = new DatagramSocket(5556);
 		    byte[] buf = new byte[1024];  
 		    DatagramPacket dp = new DatagramPacket(buf, 1024);  
 		    ds.receive(dp);  
 		    String str = new String(dp.getData(), 0, dp.getLength()); 
 		    
 		    System.out.println(str); 
-		    
+		    ds.close(); 
 		    this.responder();
-		    ds.close();  
+		    
 		} catch (Exception e) {
 			e.printStackTrace();
 		}  
-	}
+	
 	}
 	
 

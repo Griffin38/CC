@@ -13,12 +13,15 @@ public class ReverseProxy {
 		this.servidores = new stateTable();
 		this.TCP = new tcpMaster();
 		this.UDP = new udpMaster(servidores);
+		this.UDP.start();
+		//TCP
 	}
 	
 	 public static void main(String argv[]) throws Exception {
 		 
 		  ServerSocket MainOut = new ServerSocket(80);
 		  ReverseProxy main = new ReverseProxy();
+		
 		  while (true) {  
 			  
 			  Socket connectionSocket = MainOut.accept();

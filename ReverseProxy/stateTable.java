@@ -11,6 +11,7 @@ public class stateTable {
 	}
 	//add 
 	public void addE(String IP){
+		System.out.println("Novo Servidor: "+ IP);
 		this.servers.put(IP, new stateE());
 	}
 	//actualizars

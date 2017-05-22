@@ -5,6 +5,7 @@ import java.net.DatagramSocket;
 
 public class udpMaster extends Thread {
 	private stateTable servidores;
+	
 	public udpMaster(stateTable serv) {
 		servidores = serv;
 		
@@ -31,7 +32,10 @@ public class udpMaster extends Thread {
    		    DatagramPacket dp = new DatagramPacket(buf, 1024);  
    		    ds.receive(dp);  
    		    String str = new String(dp.getData(), 0, dp.getLength());  
-   		    System.out.println(str);
+   		    
+   		    String[] split = str.split("/");
+   		 System.out.println(split[1]);
+   		    servidores.addE(split[1]);
    		    //processar string
    		    //se for entrar adicionar a statetable se for resposta actualizar
    		    ds.close();  
