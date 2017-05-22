@@ -33,7 +33,7 @@ public class ReverseProxy {
 			    	 while (true) {
 			    		main.trata(inFromClient,outToClient);
 			  		   //escolher e trartar novo cliente
-			  		  //clientSentence = inFromClient.readLine();
+			  		  
 			  		  }
 			    }  
 			};

@@ -1,6 +1,9 @@
 package ReverseProxy;
 
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class stateTable {
 
@@ -11,8 +14,10 @@ public class stateTable {
 	}
 	//add 
 	public void addE(String IP){
+		if(!servers.containsKey(IP)){
 		System.out.println("Novo Servidor: "+ IP);
 		this.servers.put(IP, new stateE());
+	}
 	}
 	//actualizars
 	
@@ -33,6 +38,14 @@ public class stateTable {
 	public String getBest(){
 		String ret = new String();
 		
+		return ret;
+	}
+	public List<String> getServers() {
+		
+		 List<String> ret = new ArrayList<String>();
+		 for(String s : servers.keySet()){
+			 ret.add(s);
+		 }
 		return ret;
 	}
 }
