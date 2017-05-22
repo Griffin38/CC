@@ -3,16 +3,25 @@ package Server;
 import java.net.*; 
 
 
-public class monitorUDP {
+public class monitorUDP  {
 	private String connect;
+	private String self;
+	private tcpServer t;
 	
 	public monitorUDP(String c){
 		this.connect= c;
+		try {
+			this.self = InetAddress.getLocalHost().toString();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 	}
-	public void registar(){
+	//recebe t para perguntar connects 
+	public void registar(tcpServer t2){
+		t = t2;
 		try{
 		    DatagramSocket ds = new DatagramSocket();  
-		    String str = "Welcome java";  
+		    String str = "D:" + self;  
 		    // manda IP
 		    InetAddress ip = InetAddress.getByName(connect);  
 		     
@@ -27,7 +36,7 @@ public class monitorUDP {
 	public void responder(){
 		try{
 		    DatagramSocket ds = new DatagramSocket();  
-		    String str = "IM BOSS";  
+		    String str = "U:"  + self +":" + t.getConnects();
 		 
 		    InetAddress ip = InetAddress.getByName(connect);  
 		     
@@ -39,7 +48,7 @@ public class monitorUDP {
 	}
 }
 	public void Receive(){
-		
+	while(true){	
 		try {
 			 DatagramSocket ds = new DatagramSocket(5555);
 		    byte[] buf = new byte[1024];  
@@ -54,10 +63,7 @@ public class monitorUDP {
 			e.printStackTrace();
 		}  
 	}
-	
-	public void run(){
-		this.registar();
-		//thread do receive
-		this.Receive();
 	}
+	
+
 }

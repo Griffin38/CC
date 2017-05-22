@@ -16,7 +16,8 @@ public class udpMaster extends Thread {
 			    public void run() {
 			    	 while (true) {
 			    		//sleep()
-			  		  // perguntar a todos 
+			  		  // perguntar a todos // fazer servidores.upT();
+			    	
 			  		  }
 			    }  
 			};
