@@ -3,6 +3,7 @@ package ReverseProxy;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class udpMaster extends Thread {
@@ -26,26 +27,44 @@ public class udpMaster extends Thread {
 		e.printStackTrace();
 	}
 }
+	
+	private class ThreadA implements Runnable
+	{
+	  private HashMap<String,Long>  times;
+	  public ThreadA(HashMap<String,Long> hash)
+	  {
+	    this.times = hash;
+	  }
+	@Override
+    public void run() {
+   	 while (true) {
+   		 try {
+   			 times = new HashMap<>();
+   			 for(String s : servidores.getServers()){
+   				 long pot = System.nanoTime();
+   				 times.put(s,pot);
+   				 perguntar (s);
+   				 servidores.upT(s);
+   				 
+   				 
+   			 }
+				TimeUnit.SECONDS.sleep(60);
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+ 		 
+   	
+ 		  }
+   }  
+	}
+	
+	
 	public void run() {
 		
-		   Thread probing = new Thread() {
-			    public void run() {
-			    	 while (true) {
-			    		 try {
-			    			 for(String s : servidores.getServers()){
-			    				 perguntar (s);
-			    				 servidores.upT(s);
-			    			 }
-							TimeUnit.SECONDS.sleep(60);
-						} catch (InterruptedException e) {
-							
-							e.printStackTrace();
-						}
-			  		 
-			    	
-			  		  }
-			    }  
-			};
+		HashMap<String,Long>  times;
+		 times = new HashMap<>();
+		   Thread probing = new Thread(new ThreadA(times));
 
 			probing.start();
 		
@@ -63,10 +82,13 @@ public class udpMaster extends Thread {
           		 System.out.println(split2[1]);
           		   servidores.addE(split2[1]);
             break;
-   case "U": String[] split3 = split[1].split("/");
+   case "U": long b = System.nanoTime();
+	   String[] split3 = split[1].split("/");
 	 System.out.println(split3[1]);
 	 System.out.println(split[2]);
-	 // falta updateE(long rtt, int lig,String IP)
+	 long a = times.get(split3[1]);
+	 long rtt = b - a ;
+	 servidores.updateE(rtt, Integer.parseInt(split[2]),split3[1]);
             break;
    default:   System.out.println("NOpe");
             break;
