@@ -45,7 +45,7 @@ public class ReverseProxy {
 	 
 private void trata(Socket connectionSocket){
 	
-		String IPx = null;
+		String IPx = servidores.getBest();
 		TCP.trata( IPx , connectionSocket);
 
 }

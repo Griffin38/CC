@@ -19,10 +19,16 @@ public class tcpMaster  {
 			  BufferedReader inFromClient = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			  BufferedReader inFromServer = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			  
+			  System.out.println("delegar para :" + server);
+			  
 			  String clientSentence = inFromClient.readLine();
-			  outToServer.writeBytes(clientSentence);
+			
+			  outToServer.writeBytes(clientSentence+'\n');
+			 
 			  String capitalSentence = inFromServer.readLine();
+			
 			  outToClient.writeBytes(capitalSentence);
+			 
 			  System.out.println("N "+ clientSentence+" C "+ capitalSentence);
 			  s.shutdownInput();
 	            s.shutdownOutput();
@@ -30,7 +36,7 @@ public class tcpMaster  {
 	            con.shutdownOutput();
 	            s.close();
 	            con.close();
-			 
+	            System.out.println("Finalizado para :" + server); 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

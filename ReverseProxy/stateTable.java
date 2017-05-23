@@ -39,8 +39,25 @@ public class stateTable {
 	
 	public String getBest(){
 		String ret = new String();
+		long rtt = 100000000 ;
+		int con = 1000;
 		//devolver rtt mais baixo ou menos ligaçoes / pacotes perdidos
-		
+		for(String s : this.servers.keySet()){
+			stateE aux = servers.get(s);
+			
+			if(aux.getRTT() < rtt && aux.getNligTCP() == 0){
+				ret = s;
+				rtt = aux.getRTT();
+				con = aux.getNligTCP();
+				
+			}else if(aux.getRTT() < rtt)  {
+				if(aux.getNligTCP() < con ){
+					ret = s;
+					rtt = aux.getRTT();
+					con = aux.getNligTCP();
+				}
+			}
+		}
 		
 		
 		return ret;

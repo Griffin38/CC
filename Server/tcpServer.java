@@ -45,9 +45,10 @@ public tcpServer(){
 		  
 		  private static void trata(Socket connectionSocket){
 			
-				try {
+				try { 
 					  BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 			  		   DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+			  		
 					String clientSentence = inFromClient.readLine();
 					 System.out.println("Received: " + clientSentence);
 					 String  capitalizedSentence = clientSentence.toUpperCase() + '\n';
