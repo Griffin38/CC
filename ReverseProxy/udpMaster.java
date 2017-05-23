@@ -42,13 +42,14 @@ public class udpMaster extends Thread {
    			 times = new HashMap<>();
    			 for(String s : servidores.getServers()){
    				 long pot = System.nanoTime();
+   				 
    				 times.put(s,pot);
    				 perguntar (s);
-   				 servidores.upT(s);
+   				 servidores.upT(s,pot);
    				 
    				 
    			 }
-				TimeUnit.SECONDS.sleep(60);
+				TimeUnit.SECONDS.sleep(10);
 			} catch (InterruptedException e) {
 				
 				e.printStackTrace();
@@ -86,8 +87,12 @@ public class udpMaster extends Thread {
 	   String[] split3 = split[1].split("/");
 	 System.out.println(split3[1]);
 	 System.out.println(split[2]);
-	 long a = times.get(split3[1]);
-	 long rtt = b - a ;
+	
+	 long a = servidores.getTi(split3[1]);
+	 System.out.println("inico "+a);
+	 System.out.println("fim "+b);
+	  long rtt = b - a ;
+	  System.out.println("rtt "+rtt);
 	 servidores.updateE(rtt, Integer.parseInt(split[2]),split3[1]);
             break;
    default:   System.out.println("NOpe");

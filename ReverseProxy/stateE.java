@@ -10,7 +10,9 @@ public class stateE {
 	 * percent
 	 */
 	
-	private long RTT, Percent;
+	private long RTT, Percent,timeI;
+	
+
 	private int Nentradas,Nperdas,NligTCP,Total;
 	
 	
@@ -25,6 +27,13 @@ public class stateE {
 		this.Total = 0;
 	}
 	
+	public long getTimeI() {
+		return timeI;
+	}
+
+	public void setTimeI(long timeI) {
+		this.timeI = timeI;
+	}
 	public long getRTT() {
 		return RTT;
 	}

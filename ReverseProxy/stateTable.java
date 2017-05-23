@@ -21,9 +21,11 @@ public class stateTable {
 	}
 	//actualizars
 	
-	public void upT(String IP){
+	public void upT(String IP,long x){
 		stateE aux = servers.get(IP);
 		aux.setTotal(aux.getTotal()+1);
+		aux.setTimeI(x);
+		
 	}
 	public void updateE(long rtt, int lig,String IP){
 		stateE aux = servers.get(IP);
@@ -37,7 +39,7 @@ public class stateTable {
 	
 	public String getBest(){
 		String ret = new String();
-		
+		//devolver rtt mais baixo ou menos ligaçoes / pacotes perdidos
 		return ret;
 	}
 	public List<String> getServers() {
@@ -47,5 +49,9 @@ public class stateTable {
 			 ret.add(s);
 		 }
 		return ret;
+	}
+	public long getTi(String IP){
+		stateE aux = servers.get(IP);
+		return aux.getTimeI();
 	}
 }

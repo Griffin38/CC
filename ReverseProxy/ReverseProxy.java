@@ -30,11 +30,11 @@ public class ReverseProxy {
 	  		   
 	  		   Thread cl = new Thread() {
 			    public void run() {
-			    	 while (true) {
+			    	 
 			    		main.trata(inFromClient,outToClient);
 			  		   //escolher e trartar novo cliente
 			  		  
-			  		  }
+			  		  
 			    }  
 			};
 
