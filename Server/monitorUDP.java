@@ -1,6 +1,7 @@
 package Server;
 
-import java.net.*; 
+import java.net.*;
+import java.util.concurrent.TimeUnit; 
 
 
 public class monitorUDP  {
@@ -19,6 +20,7 @@ public class monitorUDP  {
 	//recebe t para perguntar connects 
 	public void registar(tcpServer t2){
 		t = t2;
+		while(true){
 		try{
 		    DatagramSocket ds = new DatagramSocket();  
 		    String str = "D:" + self;  
@@ -27,10 +29,13 @@ public class monitorUDP  {
 		     
 		    DatagramPacket dp = new DatagramPacket(str.getBytes(), str.length(), ip, 5555);  
 		    ds.send(dp);  
-		    ds.close();  
+		    ds.close(); 
+		    TimeUnit.SECONDS.sleep(120);
 	}catch (Exception e){
 		e.printStackTrace();
 	}
+		
+		}
 }
  
 	public void responder(){

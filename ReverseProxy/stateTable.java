@@ -54,4 +54,7 @@ public class stateTable {
 		stateE aux = servers.get(IP);
 		return aux.getTimeI();
 	}
+	public void renew(){
+		this.servers = new HashMap<>();
+	}
 }
