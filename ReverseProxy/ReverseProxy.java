@@ -25,13 +25,12 @@ public class ReverseProxy {
 		  while (true) {  
 			  
 			  Socket connectionSocket = MainOut.accept();
-	  	      BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-	  		   DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+	  	  
 	  		   
 	  		   Thread cl = new Thread() {
 			    public void run() {
 			    	 
-			    		main.trata(inFromClient,outToClient);
+			    		main.trata(connectionSocket);
 			  		   //escolher e trartar novo cliente
 			  		  
 			  		  
@@ -44,13 +43,10 @@ public class ReverseProxy {
 	 }
 		 }
 	 
-private void trata(BufferedReader in, DataOutputStream out){
-	try {
-		String clientSentence = in.readLine();
-		
-	} catch (IOException e) {
+private void trata(Socket connectionSocket){
+	
+		String IPx = null;
+		TCP.trata( IPx , connectionSocket);
 
-		e.printStackTrace();
-	}
 }
 }

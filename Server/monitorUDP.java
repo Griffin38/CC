@@ -20,7 +20,7 @@ public class monitorUDP  {
 	//recebe t para perguntar connects 
 	public void registar(tcpServer t2){
 		t = t2;
-		while(true){
+		
 		try{
 		    DatagramSocket ds = new DatagramSocket();  
 		    String str = "D:" + self;  
@@ -30,12 +30,29 @@ public class monitorUDP  {
 		    DatagramPacket dp = new DatagramPacket(str.getBytes(), str.length(), ip, 5555);  
 		    ds.send(dp);  
 		    ds.close(); 
-		    TimeUnit.SECONDS.sleep(120);
+		    Thread cl = new Thread() {
+			    public void run() {
+			    	try {
+						TimeUnit.SECONDS.sleep(120);
+						registar(t2);
+					} catch (InterruptedException e) {
+					
+						e.printStackTrace();
+					}
+			    	
+			    		
+			  		  
+			  		  
+			    }  
+			};
+
+			cl.start();
+		   //new thread 
 	}catch (Exception e){
 		e.printStackTrace();
 	}
 		
-		}
+		
 }
  
 	public void responder(){

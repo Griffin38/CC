@@ -56,8 +56,7 @@ public class udpMaster extends Thread {
 	
 	public void run() {
 		
-		HashMap<String,Long>  times;
-		 times = new HashMap<>();
+		
 		   Thread probing = new Thread(new ThreadA());
 
 			probing.start();

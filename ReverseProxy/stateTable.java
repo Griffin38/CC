@@ -40,6 +40,9 @@ public class stateTable {
 	public String getBest(){
 		String ret = new String();
 		//devolver rtt mais baixo ou menos ligaçoes / pacotes perdidos
+		
+		
+		
 		return ret;
 	}
 	public List<String> getServers() {

@@ -22,7 +22,7 @@ public tcpServer(){
 	public void runT() throws Exception{
 		 running  = true;
 		 con = 0;
-		 ServerSocket MainOut = new ServerSocket(666);
+		 ServerSocket MainOut = new ServerSocket(6666);
 		
 		  while (running) {  
 			  
@@ -53,6 +53,7 @@ public tcpServer(){
 					 String  capitalizedSentence = clientSentence.toUpperCase() + '\n';
 					   outToClient.writeBytes(capitalizedSentence);
 					   con--;
+					   connectionSocket.shutdownOutput();
 					   connectionSocket.close();
 					  
 				} catch (IOException e) {

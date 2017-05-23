@@ -1,4 +1,4 @@
-package Cliente;
+
 import java.io.*;
 import java.net.*;
 
@@ -11,11 +11,13 @@ public class Cliente {
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
             PrintWriter output = new PrintWriter(s.getOutputStream());
             
-          
-            while( !(pedido=userInput.readLine()).equals("logout") ){
-                output.println(pedido);
-                output.flush();
-            }   
+            DataOutputStream outToServer = new DataOutputStream(s.getOutputStream());
+            String sx = "minimo\n";
+            outToServer.writeBytes(sx);
+            BufferedReader inFromServer= new BufferedReader(new InputStreamReader(s.getInputStream()));
+            String result = inFromServer.readLine();
+            System.out.println(result);
+             
             
             s.shutdownInput();
             s.shutdownOutput();
