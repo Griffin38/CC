@@ -33,19 +33,21 @@ public class stateTable {
 		aux.setNligTCP(lig);
 		aux.setNentradas(aux.getNentradas()+1);
 		aux.setNperdas(aux.getTotal()-aux.getNentradas());
-		aux.setPercent(aux.getTotal()/aux.getNentradas());
+		aux.setPercent((aux.getTotal()/aux.getNentradas())*100);
 	}
 	//melhro server
 	
 	public String getBest(){
 		String ret = new String();
 		long rtt = 100000000 ;
-		int con = 1000;
+		int con = 20;
 		//devolver rtt mais baixo ou menos ligaçoes / pacotes perdidos
 		for(String s : this.servers.keySet()){
 			stateE aux = servers.get(s);
-			
-			if(aux.getRTT() < rtt && aux.getNligTCP() == 0){
+			//1 ver quem tem 0 conexoes 
+			//2 ver se esse tem menos de 20% de perdas e sse tiver escolhe se esse
+			//else ver o que tem menosr rtt e se tem menos de x conexoes
+			if(aux.getPercent() < 20 && aux.getNligTCP() == 0){
 				ret = s;
 				rtt = aux.getRTT();
 				con = aux.getNligTCP();
@@ -56,6 +58,10 @@ public class stateTable {
 					rtt = aux.getRTT();
 					con = aux.getNligTCP();
 				}
+			}else if(aux.getNligTCP()<con){
+				ret = s;
+				rtt = aux.getRTT();
+				con = aux.getNligTCP();
 			}
 		}
 		
